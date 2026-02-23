@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, ParseIntPipe, Post, Req } from "@nestjs/common";
+import { Body, Controller, Get, Param, Query, ParseIntPipe, Post, Req } from "@nestjs/common";
 import { Workplace } from "@prisma/client";
 import { Request } from "express";
 
@@ -20,6 +20,15 @@ export class WorkplacesController {
   @Post()
   async create(@Body() data: CreateWorkplace): Promise<Response<Workplace>> {
     return { data: await this.service.create(data) };
+  }
+
+  /**
+   * Retrieves the top 3 active workers based on completed shifts
+   * Ignores any query parameters to avoid validation errors
+   */
+  @Get("/top")
+  async getTopWorkplaces(@Query() _unused?: Record<string, unknown>) {
+    return this.service.getTopWorkplaces();
   }
 
   /**
