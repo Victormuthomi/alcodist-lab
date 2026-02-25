@@ -16,10 +16,12 @@ jobs:
         with:
           node-version: "20"
 
-      - name: Install server dependencies (legacy-peer-deps)
+      # Install server dependencies with legacy-peer-deps
+      - name: Install server dependencies
         working-directory: ./server
         run: npm install --legacy-peer-deps
 
+      # Start server in background
       - name: Start server
         working-directory: ./server
         run: npm run start &
@@ -27,14 +29,22 @@ jobs:
       - name: Wait for server to start
         run: sleep 10
 
-      - name: Install test dependencies (legacy-peer-deps)
+      # Install test dependencies with legacy-peer-deps
+      - name: Install test dependencies
         working-directory: ./test
         run: npm install --legacy-peer-deps
 
+      # Ensure TypeScript is installed for ts-jest
+      - name: Install TypeScript for tests
+        working-directory: ./test
+        run: npm install typescript --save-dev
+
+      # Set up database (keep existing command, untouched)
       - name: Set up database and seed data
         working-directory: ./server
         run: export PRISMA_ENGINES_CHECKSUM_IGNORE_MISSING=1 && npx prisma migrate dev --name init
 
+      # Run basic functionality tests
       - name: Run basic functionality tests
         working-directory: ./test
         run: npx jest --config ./jest-basic.json
