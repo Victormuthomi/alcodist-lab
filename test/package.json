@@ -27,7 +27,8 @@
     "json5": "^2.2.3",
     "supertest": "^7.1.0",
     "ts-jest": "29.3.0",
-    "ts-node": "^10.9.1"
+    "ts-node": "^10.9.1",
+    "typescript": "^5.9.3"
   },
   "dependencies": {
     "reflect-metadata": "^0.2.2",
