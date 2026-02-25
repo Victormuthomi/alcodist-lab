@@ -29,5 +29,8 @@
     "supertest": "^7.1.0",
     "ts-jest": "29.3.0",
     "ts-node": "^10.9.1"
+  },
+  "dependencies": {
+    "reflect-metadata": "^0.2.2"
   }
 }
