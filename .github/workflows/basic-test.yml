@@ -18,22 +18,24 @@ jobs:
 
       - name: Install server dependencies
         working-directory: ./server
-        run: npm install
+        run: npm install --legacy-peer-deps
+
+      - name: Install test dependencies
+        working-directory: ./test
+        run: npm install --legacy-peer-deps
+
+      - name: Set up database
+        working-directory: ./server
+        run: |
+          export PRISMA_ENGINES_CHECKSUM_IGNORE_MISSING=1
+          npx prisma migrate reset --force
 
       - name: Start server
         working-directory: ./server
         run: npm run start &
 
       - name: Wait for server to start
-        run: sleep 10
-
-      - name: Install test dependencies
-        working-directory: ./test
-        run: npm install
-
-      - name: Set up database and seed data
-        working-directory: ./server
-        run: export PRISMA_ENGINES_CHECKSUM_IGNORE_MISSING=1 && npx prisma migrate dev --name init
+        run: npx wait-on http://localhost:3000
 
       - name: Run basic functionality tests
         working-directory: ./test
