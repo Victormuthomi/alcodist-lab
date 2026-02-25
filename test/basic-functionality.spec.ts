@@ -1,41 +1,47 @@
-import { exec } from "child_process";
-import * as path from "path";
+import request from "supertest";
+import { INestApplication } from "@nestjs/common";
+import { Test } from "@nestjs/testing";
+import { AppModule } from "../server/src/app.module";
 
-const packageDir = path.resolve(__dirname, "../server");
+describe("Top Endpoints (CI/CD)", () => {
+  let app: INestApplication;
 
-async function runTopWorkplacesScript(): Promise<string> {
-  return new Promise((resolve, reject) => {
-    exec("npm run start:topWorkplaces --silent", { cwd: packageDir }, (error, stdout, stderr) => {
-      if (error) {
-        reject(`Error executing command: ${error}`);
-        return;
-      }
-      if (stderr) {
-        reject(`Error executing script: ${stderr}`);
-        return;
-      }
-      resolve(stdout.toString());
+  beforeAll(async () => {
+    const moduleRef = await Test.createTestingModule({
+      imports: [AppModule],
+    }).compile();
+
+    app = moduleRef.createNestApplication();
+    await app.init();
+  });
+
+  afterAll(async () => {
+    await app.close();
+  });
+
+  it("should get top workers successfully", async () => {
+    const res = await request(app.getHttpServer()).get("/workers/top");
+
+    expect(res.status).toBe(200);
+    expect(Array.isArray(res.body)).toBe(true);
+
+    res.body.forEach((worker: any) => {
+      expect(worker).toHaveProperty("id");
+      expect(worker).toHaveProperty("name");
+      expect(worker).toHaveProperty("shifts");
     });
   });
-}
 
-describe("Basic Functionality", () => {
-  it("should run the top-workplaces script successfully", async () => {
-    const output = await runTopWorkplacesScript();
-    expect(output).toBeDefined();
-    expect(output.trim()).not.toBe("");
-  }, 30000); // 30 second timeout
+  it("should get top workplaces successfully", async () => {
+    const res = await request(app.getHttpServer()).get("/workplaces/top");
 
-  it("should produce valid JSON output", async () => {
-    const output = await runTopWorkplacesScript();
+    expect(res.status).toBe(200);
+    expect(Array.isArray(res.body)).toBe(true);
 
-    // Test that we can parse the output as JSON
-    let parsedOutput;
-    expect(() => {
-      parsedOutput = JSON.parse(output.trim());
-    }).not.toThrow();
-
-    // Basic validation that it's an array
-    expect(Array.isArray(parsedOutput)).toBe(true);
-  }, 30000);
+    res.body.forEach((wp: any) => {
+      expect(wp).toHaveProperty("id");
+      expect(wp).toHaveProperty("name");
+      expect(wp).toHaveProperty("shifts");
+    });
+  });
 });
