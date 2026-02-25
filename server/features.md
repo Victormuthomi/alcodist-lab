@@ -15,17 +15,23 @@ the platform within a 100m radius range from his/her location.
 ### Business logics
 
 1. Take the workplace and workers location and convert it to co-ordinates.
-1. Filter out everyone whos is inactive or has a ongoing shift.
-1. Using the workplace co-ordinate calculate the lower value of the 100m radius from the workplace.
-1. Filter everyone out who is out of that range.
-1. Sort the remaing ones based on who is nearest to the workplace.
-1. Send a notification to the nearest worker.
-1. Confirm the worker has accepted the shift.
+2. Filter out everyone whos is inactive or has a ongoing shift.
+3. Using the workplace co-ordinate calculate the lower value of the 100m radius from the workplace.
+4. Filter everyone out who is out of that range.
+5. Sort the remaing ones based on who is nearest to the workplace.
+6. Send a notification to the nearest worker.
+7. Confirm the worker has accepted the shift.
 
 ### Architecture
 
 - We will use google apis to do the converting of location to co-ordinates
   -New folder location to be added this feature will be isolated from the 3 others
+
+  ## Technologies
+  - nestJS,
+  - Prisma
+  - SQLite
+  - Typescript
 
 ## Future improvements
 
