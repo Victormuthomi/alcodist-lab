@@ -25,10 +25,10 @@ function urlWithoutQueryParameters(request: Request): string {
 }
 
 export function getPage(pageNum?: number, shard?: number): Page {
-  return { 
-    num: pageNum ? pageNum : FIRST_PAGE, 
-    size: PAGE_SIZE, 
-    shard: shard !== undefined ? shard : DEFAULT_SHARD 
+  return {
+    num: pageNum ? pageNum : FIRST_PAGE,
+    size: PAGE_SIZE,
+    shard: shard !== undefined ? shard : DEFAULT_SHARD,
   };
 }
 
@@ -56,7 +56,7 @@ export function queryParameters(parameters: { page: Page; whereFilter?: any }): 
   const { page, whereFilter } = parameters;
   return {
     take: page.size,
-    skip: page.num * page.size,
+    skip: (page.num - 1) * page.size,
     where: {
       shard: page.shard ?? DEFAULT_SHARD,
       ...(whereFilter ? whereFilter : {}),

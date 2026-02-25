@@ -53,4 +53,38 @@ export class WorkersService {
 
     return { data: claims, nextPage };
   }
+
+  // Service to get top 3 workers with most completed shifts
+  async getTopWorkers(): Promise<{ id: number; name: string; shifts: number }[]> {
+    const now = new Date();
+
+    const topWorkers = await this.prisma.worker.findMany({
+      where: { status: 0 },
+      select: {
+        id: true,
+        name: true,
+        Shift: {
+          where: {
+            cancelledAt: null,
+            endAt: { lt: now }, // only completed shifts
+          },
+          select: { id: true }, // just need count
+        },
+      },
+    });
+
+    const sortedWorkers = topWorkers
+      .map((worker) => ({
+        id: worker.id,
+        name: worker.name,
+        shifts: worker.Shift.length,
+      }))
+      .sort((a, b) => {
+        if (b.shifts !== a.shifts) return b.shifts - a.shifts; // primary: completed shifts
+        return a.name.localeCompare(b.name); // tie-break: alphabetical
+      })
+      .slice(0, 3); // top 3
+
+    return sortedWorkers;
+  }
 }

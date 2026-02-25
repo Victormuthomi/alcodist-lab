@@ -34,6 +34,15 @@ export class WorkersController {
   }
 
   /**
+   * Retrieves the top 3 active workers based on completed shifts
+   * Ignores any query parameters to avoid validation errors
+   */
+  @Get("/top")
+  async getTopWorkers(@Query() _unused?: Record<string, unknown>) {
+    return this.service.getTopWorkers();
+  }
+
+  /**
    * Retrieves paginated list of shifts claimed by a worker
    * @param request - The HTTP request object
    * @param id - The worker ID

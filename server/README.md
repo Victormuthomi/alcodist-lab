@@ -35,6 +35,7 @@ npm run start:dev
 - `GET /workers/:id`: Get worker by ID
   - Params: `:id` - Worker ID
 - `GET /workers`: List all workers
+- `Get /workers/top` : List top 3 workers with most completed shifts
 - `GET /workers/claims`: Get worker claims
   - Query: `workerId` - Worker ID
 
@@ -45,6 +46,7 @@ npm run start:dev
 - `GET /workplaces/:id`: Get workplace by ID
   - Params: `:id` - Workplace ID
 - `GET /workplaces`: List all workplaces
+- `Get /workplaces/top` : List top 3 workplaces with most completed shifts
 
 ### Shifts
 
