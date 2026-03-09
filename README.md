@@ -1,20 +1,24 @@
-# Red Planet Staffing
+# Alcodist Lab
 
-Welcome to the red planet! At just over one million people as of the 2050 census, Martian settlements are flourishing. As the leading staffing marketplace on Mars, Red Planet connects workplaces with workers to fill shifts.
+**Alcodist Lab** is my personal backend playground where I experiment with **NestJS**, microservices, and modern backend architectures. It’s designed to showcase hands-on experience with APIs, databases, business logic, and scalable service design.  
 
-![Red Planet Staffing](./assets/red-planet.webp)
+## Highlights
 
-## Business context
+- **Backend Focus:** All core work is backend, built with **NestJS**.  
+- **Microservices & APIs:** Experiments with service-to-service communication, REST, and GraphQL.  
+- **Databases & Data Modeling:** Hands-on work with SQL and NoSQL databases.  
+- **Business Logic:** Designing and implementing core workflows, rules, and processes to simulate real-world backend systems.  
+- **Authentication & Security:** Implemented JWT, OAuth, and role-based access patterns.  
+- **Prototyping & Learning:** Rapid experimentation with NestJS modules, middleware, and architecture patterns.  
 
-Our primary customers are Martian workplaces. While they have full-time staff, they occasionally need short-term flexible staff to fill gaps in their operations (for example, when a worker is sick or on a vacation to the Moon).
+## Project Structure
 
-When they need a worker, workplaces post a "shift" on our marketplace. Workers on our marketplace then claim these shifts and are assigned to them. Once assigned, workers perform the work at the shift's start time until it's end time, and are paid based on the hours worked.
+- **Server** – Main NestJS backend with all core experiments and business logic.  
+  [Server Docs](./server/README.md)  
 
-## Documentation
+- **Client (Optional)** – Minimal interface for testing APIs and services.  
+  [Client Docs](./client/README.md)  
 
-- [Server](./server/README.md)
-- [Client](./client/README.md)
+## Purpose
 
-## Submission
-
-Submit your solution by creating a pull request (PR) on this repository. Please **do not** merge your PR. Instead, return to your Hatchways assessment page to confirm your submission.
+This project is a **portfolio piece** demonstrating practical backend engineering skills, NestJS expertise, and experience building maintainable, scalable backend systems with real-world business logic.
